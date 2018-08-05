@@ -63,6 +63,10 @@ Int_t StProductionTrackQA::Make() {
   vpdvz_ = muDst_->event()->vpdVz();
   dvz_ = vz_ - vpdvz_;
   
+  if (!TrackLoop())
+    return kStOK;
+  
+  tree_->Fill();
   
   return kStOK;
 }
