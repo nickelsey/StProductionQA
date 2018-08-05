@@ -25,7 +25,7 @@ void production_track_qa(int nEvents = 1e9,
   gROOT->Macro("loadMuDst.C");
   
   // load local libraries
-  gSystem->Load("libStProductionQA.so");
+  gSystem->Load("libStProductionTrackQA.so");
   
   StChain* chain = new StChain("StChain");
   StMuDstMaker* muDstMaker = new StMuDstMaker(0, 0, "", muFileList, "", nFiles);

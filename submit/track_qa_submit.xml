@@ -67,7 +67,7 @@
   <SandBox installer="ZIP">
     <Package name="AuAu14Pico_&TRGSETUP;_&DAYNR;">
       <File>file:&ROOTDIR;/macros/&MACRO;</File>
-      <File>file:&ROOTDIR;/libs/libStProductionQA.so</File>
+      <File>file:&ROOTDIR;/libs/libStProductionTrackQA.so</File>
     </Package>
   </SandBox>
   
