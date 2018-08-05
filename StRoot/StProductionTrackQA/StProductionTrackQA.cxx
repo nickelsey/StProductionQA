@@ -41,13 +41,13 @@ Int_t StProductionTrackQA::Make() {
     LOG_ERROR << "Error with loading muDst" << endm;
     return kStErr;
   }
-  
+  LOG_INFO << "event loaded" << endm;
   if (!SelectVertex())
     return kStOK;
-  
+  LOG_INFO << "selected vertex" << endm;
   if (!event_cuts_.AcceptEvent(muEvent_))
     return kStOK;
-  
+  LOG_INFO << "passed cuts" << endm;
   runid_ = muEvent_->runId();
   eventid_ = muEvent_->eventId();
   nvertices_ = muDst_->numberOfPrimaryVertices();
@@ -65,7 +65,7 @@ Int_t StProductionTrackQA::Make() {
   
   if (!TrackLoop())
     return kStOK;
-  
+  LOG_INFO << "track loop complete" << endm;
   tree_->Fill();
   
   return kStOK;
