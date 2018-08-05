@@ -43,7 +43,7 @@ Int_t StProductionTrackQA::Make() {
   }
   
   if (!SelectVertex())
-    continue;
+    return kStOK;
   
   if (!event_cuts_.AcceptEvent(muEvent_))
     return kStOK;
@@ -60,7 +60,7 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  vpdvz_ = muDst->vpdVz();
+  vpdvz_ = muDst_->vpdVz();
   dvz_ = vz_ - vpdvz_;
   
   
@@ -114,11 +114,8 @@ int StProductionTrackQA::InitOutput() {
   tree_->Branch("refmult", &refmult_);
   tree_->Branch("nprim", &nprim_);
   tree_->Branch("rank", &rank_);
-  tree->Branch("ntracks", &ntracks_);
-  tree->Branch("ntrackswhft", &ntrackswhft_);
-  
-  int ntracks_;
-  int ntrackswhft_;
+  tree_->Branch("ntracks", &ntracks_);
+  tree_->Branch("ntrackswhft", &ntrackswhft_);
  
   return kStOK;
 }
@@ -156,7 +153,7 @@ bool StProductionTrackQA::TrackLoop() {
     // apply track quality cuts
     if (muTrack->flag() < 0) continue;
     if (muTrack->nHitsFit() < 20) continue;
-    if ((double)muTrack->nHitsFit() / muTrack->NhitsPoss() < 0.52) continue;
+    if ((double)muTrack->nHitsFit() / muTrack->nHitsPoss() < 0.52) continue;
     if (muTrack->pt() < 0.2) continue;
     if (fabs(muTrack->eta()) > 1.0) continue;
     if (muTrack->dcaGlobal().mag() > 3.0) continue;
@@ -180,7 +177,7 @@ bool StProductionTrackQA::SelectVertex() {
       muDst_->setVertexIndex(i);
       StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
       Double_t vz = Vposition.z();
-      if (fabs(vz-vpdVz) < mdVzMax) {
+      if (fabs(vz-vpdVz) < 3.0) {
         usedVertex = i;
         break;
       }
