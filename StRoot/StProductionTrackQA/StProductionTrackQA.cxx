@@ -166,7 +166,7 @@ bool StProductionTrackQA::TrackLoop() {
     
   }
   
-  return kStOK;
+  return true;
 }
 
 bool StProductionTrackQA::SelectVertex() {
