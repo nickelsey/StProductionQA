@@ -118,6 +118,7 @@ int StProductionTrackQA::InitOutput() {
   tree_->Branch("refmult", &refmult_);
   tree_->Branch("nprim", &nprim_);
   tree_->Branch("rank", &rank_);
+  tree_->Branch("dvz", &dvz_);
   tree_->Branch("ntracks", &ntracks_);
   tree_->Branch("ntrackswhft", &ntrackswhft_);
  
