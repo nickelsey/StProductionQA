@@ -31,7 +31,7 @@ void production_track_qa(int nEvents = 1e9,
   StMuDstMaker* muDstMaker = new StMuDstMaker(0, 0, "", muFileList, "", nFiles);
 
   std::string outname = std::string(nametag) + ".root";
-  StProductionQA* qa_maker = new StProductionQA(outname, "StProductionQA");
+  StProductionTrackQA* qa_maker = new StProductionTrackQA(outname, "StProductionQA");
   // set triggers to be reproduced
   switch (trigSet) {
     case 0:
