@@ -60,7 +60,7 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  vpdvz_ = muDst_->vpdVz();
+  vpdvz_ = muDst_->event()->vpdVz();
   dvz_ = vz_ - vpdvz_;
   
   
