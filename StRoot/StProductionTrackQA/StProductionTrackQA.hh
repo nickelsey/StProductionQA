@@ -70,8 +70,8 @@ private:
   int ist_;
   int ssd_;
   double vz_;
-  double refmult_;
-  double nprim_;
+  int refmult_;
+  int nprim_;
   double rank_;
   double dvz_;
   int ntracks_;
