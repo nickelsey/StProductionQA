@@ -62,7 +62,7 @@ Int_t StProductionTrackQA::Make() {
   rank_ = muDst_->primaryVertex()->ranking();
   StBTofHeader* tofheader = muDst_->btofHeader();
   if (tofheader)
-    vpdvz_ = = tofheader->vpdVz(0);
+    vpdvz_ = tofheader->vpdVz(0);
   else
     vpdvz_ = 1000;
   dvz_ = vz_ - vpdvz_;
