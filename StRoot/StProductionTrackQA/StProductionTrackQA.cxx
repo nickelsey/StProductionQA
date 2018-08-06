@@ -60,7 +60,11 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  vpdvz_ = muDst_->event()->vpdVz();
+  StBTofHeader* tofheader = muDst_->btofHeader();
+  if (tofheader)
+    vpdvz_ = = tofheader->vpdVz(0);
+  else
+    vpdvz_ = 1000;
   dvz_ = vz_ - vpdvz_;
   
   if (!TrackLoop())
