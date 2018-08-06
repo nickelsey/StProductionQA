@@ -74,8 +74,15 @@ private:
   int nprim_;
   double rank_;
   double dvz_;
-  int ntracks_;
   int ntrackswhft_;
+  
+  std::vector<double> pt_;
+  std::vector<double> dca_;
+  std::vector<int> nhits_;
+  std::vector<int> nhitspos_;
+  std::vector<double> eta_;
+  std::vector<double> phi_;
+  std::vector<int> hft_;
   
   ClassDef(StProductionTrackQA, 0);
 };

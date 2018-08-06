@@ -72,7 +72,14 @@ Int_t StProductionTrackQA::Make() {
 }
 
 void  StProductionTrackQA::Clear(Option_t* option) {
-  
+  pt_.clear();
+  dca_.clear();
+  eta_.clear();
+  phi_.clear();
+  nhits_.clear();
+  nhitspos_.clear();
+  hft_.clear();
+
   StMaker::Clear(option);
 }
 
@@ -119,8 +126,14 @@ int StProductionTrackQA::InitOutput() {
   tree_->Branch("nprim", &nprim_);
   tree_->Branch("rank", &rank_);
   tree_->Branch("dvz", &dvz_);
-  tree_->Branch("ntracks", &ntracks_);
   tree_->Branch("ntrackswhft", &ntrackswhft_);
+  tree_->Branch("pt", &pt_);
+  tree_->Branch("dca", &dca_);
+  tree_->Branch("nhits", &nhits_);
+  tree_->Branch("nhitspos", &nhitspos_);
+  tree_->Branch("eta", &eta_);
+  tree_->Branch("phi", &phi_);
+  tree_->Branch("hft", &hft_);
  
   return kStOK;
 }
@@ -141,31 +154,45 @@ bool StProductionTrackQA::LoadEvent() {
 }
 
 bool StProductionTrackQA::TrackLoop() {
-  ntracks_ = 0;
-  ntrackswhft_ = 0;
   
   // now we loop over all tracks located at that vertex to find average dca & pt
   UInt_t nTracks = muDst_->primaryTracks()->GetEntries();
   
+  pt_.reserve(nTracks);
+  dca_.reserve(nTracks);
+  eta_.reserve(nTracks);
+  phi_.reserve(nTracks);
+  nhits_.reserve(nTracks);
+  nhitspos_.reserve(nTracks);
+  hft_.reserve(nTracks);
+  
   for (UInt_t j = 0; j < nTracks; ++j) {
     StMuTrack* muTrack = (StMuTrack*) muDst_->primaryTracks(j);
+    
+    // apply track quality cuts
+    if (muTrack->flag() < 0) continue;
     
     // check if it has hft first
     if (muTrack->nHitsFit(kPxlId) ||
         muTrack->nHitsFit(kIstId))
       ntrackswhft_++;
     
-    // apply track quality cuts
-    if (muTrack->flag() < 0) continue;
-    if (muTrack->nHitsFit() < 20) continue;
-    if ((double)muTrack->nHitsFit() / muTrack->nHitsPoss() < 0.52) continue;
-    if (muTrack->pt() < 0.2) continue;
-    if (fabs(muTrack->eta()) > 1.0) continue;
-    if (muTrack->dcaGlobal().mag() > 3.0) continue;
-    
-    ntracks_++;
-    
+    pt_.push_back(muTrack->pt());
+    dca_.push_back(muTrack->dcaGlobal().mag());
+    eta_.push_back(muTrack->eta());
+    phi_.push_back(muTrack->phi());
+    nhits_.push_back(muTrack->nHitsFit());
+    nhitspos_.push_back(muTrack->nHitsPoss());
+    hft_.push_back(muTrack->nHitsFit(kPxlId) + muTrack->nHitsFit(kIstId));
   }
+  
+  pt_.shrink_to_fit();
+  eta_.shrink_to_fit();
+  phi_.shrink_to_fit();
+  nhitspos_.shrink_to_fit();
+  nhits_.shrink_to_fit();
+  dca_.shrink_to_fit();
+  hft_.shrink_to_fit();
   
   return true;
 }
