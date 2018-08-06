@@ -182,7 +182,7 @@ bool StProductionTrackQA::TrackLoop() {
     eta_.push_back(muTrack->eta());
     phi_.push_back(muTrack->phi());
     nhits_.push_back(muTrack->nHitsFit());
-    nhitspos_.push_back(muTrack->nHitsPoss());
+    nhitspos_.push_back(muTrack->nHitsPoss(kTpcId));
     hft_.push_back(muTrack->nHitsFit(kPxlId) + muTrack->nHitsFit(kIstId));
   }
   
