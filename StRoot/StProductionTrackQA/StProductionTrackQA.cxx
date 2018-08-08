@@ -62,7 +62,20 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  ntpchits_ = muDst_->createStEvent()->tpcHitCollection()->numberOfHits();
+  StEvent* stevent_ = muDst_->createStEvent();
+  if (stevent_) {
+    LOG_INFO << "WE CREATED AN EVENT" << endm;
+    StTpcHitCollection* coll = stevent_->StTpcHitCollection();
+    if (coll) {
+      LOG_INFO << "we got tpc collection: " << coll->numberOfHits() << endm;
+      ntpchits_ = coll->numberOfHits();
+    }
+    else
+      ntpchits_ = 0;
+  }
+  else
+    ntpchits_ = 0;
+  
   vpdvzother_ = muEvent_->vpdVz();
   
   StBTofHeader* tofheader = muDst_->btofHeader();
