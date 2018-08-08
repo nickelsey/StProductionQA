@@ -62,9 +62,11 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
+  LOG_INFO << "we are creating the StEvent" << endm;
   StEvent* stevent_ = muDst_->createStEvent();
+  LOG_INFO << "entering the loop?" << endm;
   if (stevent_) {
-    LOG_INFO << "WE CREATED AN EVENT" << endm;
+    LOG_INFO << "ENTERED" << endm;
     StTpcHitCollection* coll = stevent_->StTpcHitCollection();
     if (coll) {
       LOG_INFO << "we got tpc collection: " << coll->numberOfHits() << endm;
