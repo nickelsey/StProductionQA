@@ -75,6 +75,7 @@ private:
   double rank_;
   double dvz_;
   int ntrackswhft_;
+  int ntpchits_;
   
   std::vector<double> pt_;
   std::vector<double> dca_;
