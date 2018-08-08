@@ -57,7 +57,6 @@ private:
   StMuDstMaker* muDstMaker_;
   StMuDst* muDst_;
   StMuEvent* muEvent_;
-  StMuDst2StEventMaker* translator_;
   
   TTree* tree_;
   
