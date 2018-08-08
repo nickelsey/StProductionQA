@@ -20,7 +20,6 @@ StProductionTrackQA::StProductionTrackQA(std::string outputFile, string name) : 
   muDstMaker_ = nullptr;
   muDst_ = nullptr;
   muEvent_ = nullptr;
-  translator_ = nullptr;
   out_ = new TFile(outputFile.c_str(), "RECREATE");
 }
 
