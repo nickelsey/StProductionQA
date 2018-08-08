@@ -17,7 +17,6 @@
 class StMuDstMaker;
 class StMuDst;
 class StMuEvent;
-class StMuDst2StEventMaker;
 
 class StProductionTrackQA : public StMaker {
 public:

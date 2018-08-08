@@ -7,7 +7,6 @@
 #include "StMuDSTMaker/COMMON/StMuEvent.h"
 #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
 #include "StMuDSTMaker/COMMON/StMuTrack.h"
-#include "StMuDSTMaker/COMMON/StMuDst2StEventMaker.h"
 #include "StEvent/StBTofHeader.h"
 #include "StEvent/StZdcTriggerDetector.h"
 #include "StEvent/StEvent.h"
@@ -63,24 +62,8 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  LOG_INFO << "we are creating the StEvent" << endm;
-  StEvent* stevent_ = translator_->event();
-  LOG_INFO << "entering the loop?" << endm;
-  if (stevent_) {
-    LOG_INFO << "ENTERED" << endm;
-    StTpcHitCollection* coll = stevent_->tpcHitCollection();
-    if (coll) {
-      LOG_INFO << "we got tpc collection: " << coll->numberOfHits() << endm;
-      ntpchits_ = coll->numberOfHits();
-    }
-    else
-      ntpchits_ = 0;
-  }
-  else
-    ntpchits_ = 0;
   
   vpdvzother_ = muEvent_->vpdVz();
-  
   StBTofHeader* tofheader = muDst_->btofHeader();
   if (tofheader)
     vpdvz_ = tofheader->vpdVz(0);
@@ -129,8 +112,6 @@ int StProductionTrackQA::InitInput() {
     LOG_ERROR << "No muDstMaker found in chain: StProductionTrackQA init failed" << endm;
     return kStFatal;
   }
-  
-  translator_ = new StMuDst2StEventMaker();
 
   return kStOK;
 }
