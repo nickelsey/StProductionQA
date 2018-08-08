@@ -62,7 +62,7 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  //ntpchits_ = muDst_->createStEvent()->tpcHitCollection()->numberOfHits();
+  ntpchits_ = muDst_->createStEvent()->tpcHitCollection()->numberOfHits();
   vpdvzother_ = muEvent_->vpdVz();
   
   StBTofHeader* tofheader = muDst_->btofHeader();
