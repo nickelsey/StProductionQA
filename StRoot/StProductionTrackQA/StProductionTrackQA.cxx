@@ -9,6 +9,8 @@
 #include "StMuDSTMaker/COMMON/StMuTrack.h"
 #include "StEvent/StBTofHeader.h"
 #include "StEvent/StZdcTriggerDetector.h"
+#include "StEvent/StEvent.h"
+#include "StEvent/StTpcHitCollection.h"
 
 #include "TMath.h"
 
