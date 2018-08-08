@@ -38,8 +38,6 @@ Int_t StProductionTrackQA::Init() {
 
 Int_t StProductionTrackQA::Make() {
   
-  std::cout << "IN MAKE" << std::endl;
-  
   // load the matching miniMC event
   if (LoadEvent() == false) {
     LOG_ERROR << "Error with loading muDst" << endm;
@@ -64,14 +62,14 @@ Int_t StProductionTrackQA::Make() {
   nprim_ = muDst_->primaryTracks()->GetEntries();
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
-  std::cout << "we are creating the StEvent" << std::endl;
+  LOG_INFO << "we are creating the StEvent" << endm;
   StEvent* stevent_ = muDst_->createStEvent();
-  std::cout << "entering the loop?" << std::endl;
+  LOG_INFO << "entering the loop?" << endm;
   if (stevent_) {
-    std::cout << "ENTERED" << std::endl;
-    StTpcHitCollection* coll = stevent_->StTpcHitCollection();
+    LOG_INFO << "ENTERED" << endm;
+    StTpcHitCollection* coll = stevent_->tpcHitCollection();
     if (coll) {
-      std::cout << "we got tpc collection: " << coll->numberOfHits() << std::endl;
+      LOG_INFO << "we got tpc collection: " << coll->numberOfHits() << endm;
       ntpchits_ = coll->numberOfHits();
     }
     else
