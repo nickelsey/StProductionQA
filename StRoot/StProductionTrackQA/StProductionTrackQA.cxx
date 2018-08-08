@@ -11,7 +11,7 @@
 #include "StEvent/StZdcTriggerDetector.h"
 #include "StEvent/StEvent.h"
 #include "StEvent/StTpcHitCollection.h"
-#include "StMuDSTMaker/StMuDst2StEventMaker.h"
+#include "StMuDst2StEventMaker.h"
 
 #include "TMath.h"
 
