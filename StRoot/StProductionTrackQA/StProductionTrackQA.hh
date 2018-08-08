@@ -64,6 +64,7 @@ private:
   int eventid_;
   int nvertices_;
   double vpdvz_;
+  double vpdvzother_;
   double zdcrate_;
   int nglobal_;
   int pxl_;

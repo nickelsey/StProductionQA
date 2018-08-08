@@ -63,6 +63,7 @@ Int_t StProductionTrackQA::Make() {
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
   ntpchits_ = muDst_->createStEvent()->tpcHitCollection()->numberOfHits();
+  vpdvzother_ = muEvent_->vpdVz();
   
   StBTofHeader* tofheader = muDst_->btofHeader();
   if (tofheader)
@@ -124,6 +125,7 @@ int StProductionTrackQA::InitOutput() {
   tree_->Branch("eventid", &eventid_);
   tree_->Branch("nvertices", &nvertices_);
   tree_->Branch("vpdvz", &vpdvz_);
+  tree_->Branch("vpdvzother", &vpdvzother_);
   tree_->Branch("zdcrate", &zdcrate_);
   tree_->Branch("nglobal", &nglobal_);
   tree_->Branch("pxl", &pxl_);
