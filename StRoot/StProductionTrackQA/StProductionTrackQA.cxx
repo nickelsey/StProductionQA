@@ -11,6 +11,7 @@
 #include "StEvent/StZdcTriggerDetector.h"
 #include "StEvent/StEvent.h"
 #include "StEvent/StTpcHitCollection.h"
+#include "StMuDSTMaker/StMuDst2StEventMaker.h"
 
 #include "TMath.h"
 
@@ -20,7 +21,7 @@ StProductionTrackQA::StProductionTrackQA(std::string outputFile, string name) : 
   muDstMaker_ = nullptr;
   muDst_ = nullptr;
   muEvent_ = nullptr;
-
+  translator_ = nullptr;
   out_ = new TFile(outputFile.c_str(), "RECREATE");
 }
 
@@ -63,7 +64,7 @@ Int_t StProductionTrackQA::Make() {
   refmult_ = muEvent_->refMult();
   rank_ = muDst_->primaryVertex()->ranking();
   LOG_INFO << "we are creating the StEvent" << endm;
-  StEvent* stevent_ = muDst_->createStEvent();
+  StEvent* stevent_ = translator_->event();
   LOG_INFO << "entering the loop?" << endm;
   if (stevent_) {
     LOG_INFO << "ENTERED" << endm;
@@ -128,6 +129,8 @@ int StProductionTrackQA::InitInput() {
     LOG_ERROR << "No muDstMaker found in chain: StProductionTrackQA init failed" << endm;
     return kStFatal;
   }
+  
+  translator_ = new StMuDst2StEventMaker();
 
   return kStOK;
 }

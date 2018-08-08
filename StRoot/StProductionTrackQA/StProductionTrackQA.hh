@@ -17,6 +17,7 @@
 class StMuDstMaker;
 class StMuDst;
 class StMuEvent;
+class StMuDst2StEventMaker;
 
 class StProductionTrackQA : public StMaker {
 public:
@@ -57,6 +58,7 @@ private:
   StMuDstMaker* muDstMaker_;
   StMuDst* muDst_;
   StMuEvent* muEvent_;
+  StMuDst2StEventMaker* translator_;
   
   TTree* tree_;
   
