@@ -195,7 +195,7 @@ int StProductionQA::VertexLoop() {
         eta_tmp.push_back(muTrack->eta());
         nhit_tmp.push_back(muTrack->nHitsFit());
         nhitposs_tmp.push_back(muTrack->nHitsPoss(kTpcId));
-        hft_.push_back(muTrack->nHitsFit(kPxlId) + muTrack->nHitsFit(kIstId));
+        hft_tmp.push_back(muTrack->nHitsFit(kPxlId) + muTrack->nHitsFit(kIstId));
     }
     
     vz_.push_back(vz);
