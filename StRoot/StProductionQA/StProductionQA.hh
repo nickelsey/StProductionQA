@@ -74,12 +74,12 @@ private:
   std::vector<int> refmult_;
   std::vector<int> nprim_;
   std::vector<double> rank_;
-  std::vector<std::vector<double>> dca_;
-  std::vector<std::vector<double>> pt_;
-  std::vector<std::vector<double>> eta_;
-  std::vector<std::vector<double>> nhit_;
-  std::vector<std::vector<double>> nhitposs_;
-  std::vector<std::vector<double>> hft_;
+  std::vector<std::vector<float16_t>> dca_;
+  std::vector<std::vector<float16_t>> pt_;
+  std::vector<std::vector<float16_t>> eta_;
+  std::vector<std::vector<int16_t>> nhit_;
+  std::vector<std::vector<int16_t>> nhitposs_;
+  std::vector<std::vector<int16_t>> hft_;
   ClassDef(StProductionQA, 0);
 };
 
