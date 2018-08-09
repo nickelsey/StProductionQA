@@ -60,6 +60,8 @@ Int_t StProductionQA::Make() {
   else
     vpdvz_ = -9999;
   
+  vpdvz_alt_ = muEvent_->vpdVz();
+  
   switch(VertexLoop()) {
     case kStOK:
       break;
@@ -118,6 +120,7 @@ int StProductionQA::InitOutput() {
   tree_->Branch("eventid", &eventid_);
   tree_->Branch("nvertices", &nvertices_);
   tree_->Branch("vpdvz", &vpdvz_);
+  tree_->Branch("vpdvzalt", &vpdvz_alt_);
   tree_->Branch("zdcrate", &zdcrate_);
   tree_->Branch("nglobal", &nglobal_);
   tree_->Branch("pxl", &pxl_);
@@ -129,6 +132,10 @@ int StProductionQA::InitOutput() {
   tree_->Branch("rank", &rank_);
   tree_->Branch("dca", &dca_);
   tree_->Branch("pt", &pt_);
+  tree_->Branch("nhit", &nhit_);
+  tree_->Branch("nhitposs", &nhitposs_);
+  tree_->Branch("eta", &eta_);
+  tree_->Branch("hft", &hft_);
   return kStOK;
 }
 
@@ -155,8 +162,22 @@ int StProductionQA::VertexLoop() {
     return kStErr;
   }
   
+  pt_.clear();
+  dca_.clear();
+  eta_.clear();
+  nhit_.clear();
+  nhitposs_.clear();
+  hft_.clear();
+  
   for (int i = 0; i < nVertices; ++i) {
     muDst_->setVertexIndex(i);
+    
+    std::vector<double> pt_tmp;
+    std::vector<double> eta_tmp;
+    std::vector<double> dca_tmp;
+    std::vector<double> nhit_tmp;
+    std::vector<double> nhitposs_tmp;
+    std::vector<double> hft_tmp;
     
     StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
     double vz = Vposition.z();
@@ -166,20 +187,28 @@ int StProductionQA::VertexLoop() {
     
     // now we loop over all tracks located at that vertex to find average dca & pt
     UInt_t nTracks = muDst_->primaryTracks()->GetEntries();
-    double pt = 0.0;
-    double dca = 0.0;
     for (UInt_t j = 0; j < nTracks; ++j) {
         StMuTrack* muTrack = (StMuTrack*) muDst_->primaryTracks(j);
-        pt += muTrack->momentum().perp() / (double) nTracks;
-        dca += muTrack->dcaGlobal().mag() / (double) nTracks;
+      
+        pt_tmp.push_back(muTrack->pt());
+        dca_tmp.push_back(muTrack->dcaGlobal().mag());
+        eta_tmp.push_back(muTrack->eta());
+        nhit_tmp.push_back(muTrack->nHitsFit());
+        nhitposs_tmp.push_back(muTrack->nHitsPoss(kTpcId));
+        hft_.push_back(muTrack->nHitsFit(kPxlId) + muTrack->nHitsFit(kIstId));
     }
     
     vz_.push_back(vz);
     nprim_.push_back(nprim);
     refmult_.push_back(refmult);
     rank_.push_back(rank);
-    pt_.push_back(pt);
-    dca_.push_back(dca);
+    pt_.push_back(pt_tmp);
+    eta_.push_back(eta_tmp);
+    dca_.push_back(dca_tmp);
+    nhit_.push_back(nhit_tmp);
+    nhitposs_.push_back(nhitposs_tmp);
+    hft_.push_back(hft_tmp);
+    
   }
   return kStOK;
 }

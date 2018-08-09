@@ -63,6 +63,7 @@ private:
   int eventid_;
   int nvertices_;
   double vpdvz_;
+  double vpdvz_alt_;
   double zdcrate_;
   int nglobal_;
   int pxl_;
@@ -73,8 +74,12 @@ private:
   std::vector<int> refmult_;
   std::vector<int> nprim_;
   std::vector<double> rank_;
-  std::vector<double> dca_;
-  std::vector<double> pt_;
+  std::vector<std::vector<double>> dca_;
+  std::vector<std::vector<double>> pt_;
+  std::vector<std::vector<double>> eta_;
+  std::vector<std::vector<double>> nhit_;
+  std::vector<std::vector<double>> nhitposs_;
+  std::vector<std::vector<double>> hft_;
   ClassDef(StProductionQA, 0);
 };
 
