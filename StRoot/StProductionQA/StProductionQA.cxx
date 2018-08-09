@@ -172,12 +172,12 @@ int StProductionQA::VertexLoop() {
   for (int i = 0; i < nVertices; ++i) {
     muDst_->setVertexIndex(i);
     
-    std::vector<double> pt_tmp;
-    std::vector<double> eta_tmp;
-    std::vector<double> dca_tmp;
-    std::vector<double> nhit_tmp;
-    std::vector<double> nhitposs_tmp;
-    std::vector<double> hft_tmp;
+    std::vector<float> pt_tmp;
+    std::vector<float> eta_tmp;
+    std::vector<float> dca_tmp;
+    std::vector<short> nhit_tmp;
+    std::vector<short> nhitposs_tmp;
+    std::vector<short> hft_tmp;
     
     StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
     double vz = Vposition.z();
