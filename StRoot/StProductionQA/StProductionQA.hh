@@ -18,8 +18,8 @@ class StMuDstMaker;
 class StMuDst;
 class StMuEvent;
 
-template class std::vector<float>;
-template class std::vector<short>;
+template class std::vector<Float_t>;
+template class std::vector<Short_t>;
 
 class StProductionQA : public StMaker {
 public:
@@ -77,12 +77,12 @@ private:
   std::vector<int> refmult_;
   std::vector<int> nprim_;
   std::vector<double> rank_;
-  std::vector<std::vector<float>> dca_;
-  std::vector<std::vector<float>> pt_;
-  std::vector<std::vector<float>> eta_;
-  std::vector<std::vector<short>> nhit_;
-  std::vector<std::vector<short>> nhitposs_;
-  std::vector<std::vector<short>> hft_;
+  std::vector<std::vector<Float_t>> dca_;
+  std::vector<std::vector<Float_t>> pt_;
+  std::vector<std::vector<Float_t>> eta_;
+  std::vector<std::vector<Short_t>> nhit_;
+  std::vector<std::vector<Short_t>> nhitposs_;
+  std::vector<std::vector<Short_t>> hft_;
   ClassDef(StProductionQA, 0);
 };
 
