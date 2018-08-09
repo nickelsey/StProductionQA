@@ -45,9 +45,9 @@
 <job fileListSyntax="xrootd" inputOrder="runnumber" splitBy="runnumber" maxEvents="15000" simulateSubmission="false">
   
   <command>
-    setenv LOG &OUTDIR;/&TRGSETUP;/logs/log/trigger_set_&TRIGGERS;/&DAYNR;
-    setenv ERR &OUTDIR;/&TRGSETUP;/logs/err/trigger_set_&TRIGGERS;&DAYNR;
-    setenv OUT &OUTDIR;/&TRGSETUP;/out/trigger_set_&TRIGGERS;/&DAYNR;
+    setenv LOG &OUTDIR;/&TRGSETUP;/logs/&PROD;/log/trigger_set_&TRIGGERS;/&DAYNR;
+    setenv ERR &OUTDIR;/&TRGSETUP;/logs/&PROD;/err/trigger_set_&TRIGGERS;&DAYNR;
+    setenv OUT &OUTDIR;/&TRGSETUP;/out/&PROD;/trigger_set_&TRIGGERS;/&DAYNR;
     
     mkdir -p $LOG
     mkdir -p $ERR
