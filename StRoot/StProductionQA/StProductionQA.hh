@@ -18,9 +18,6 @@ class StMuDstMaker;
 class StMuDst;
 class StMuEvent;
 
-template class std::vector<Float_t>;
-template class std::vector<Short_t>;
-
 class StProductionQA : public StMaker {
 public:
   StProductionQA(std::string outFile = "StProductionQA.root", std::string name = "StProductionQA");
