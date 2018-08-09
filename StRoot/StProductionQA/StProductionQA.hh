@@ -14,31 +14,6 @@
 
 #include "StMaker.h"
 
-#ifdef __CINT__
-#pragma link C++ nestedclasses;
-#pragma link C++ nestedtypedefs;
-#pragma link C++ class vector<vector<short>>+;
-#pragma link C++ class vector<vector<short>>::*;
-#ifdef G__VECTOR_HAS_CLASS_ITERATOR
-#pragma link C++ operators vector<vector<short>>::iterator;
-#pragma link C++ operators vector<vector<short>>::const_iterator;
-#pragma link C++ operators vector<vector<short>>::reverse_iterator;
-#endif
-#endif
-
-#ifdef __CINT__
-#pragma link C++ nestedclasses;
-#pragma link C++ nestedtypedefs;
-#pragma link C++ class vector<vector<float>>+;
-#pragma link C++ class vector<vector<float>>::*;
-#ifdef G__VECTOR_HAS_CLASS_ITERATOR
-#pragma link C++ operators vector<vector<float>>::iterator;
-#pragma link C++ operators vector<vector<float>>::const_iterator;
-#pragma link C++ operators vector<vector<float>>::reverse_iterator;
-#endif
-#endif
-
-
 class StMuDstMaker;
 class StMuDst;
 class StMuEvent;
@@ -102,12 +77,12 @@ private:
   std::vector<int> refmult_;
   std::vector<int> nprim_;
   std::vector<double> rank_;
-  std::vector<std::vector<Float_t>> dca_;
-  std::vector<std::vector<Float_t>> pt_;
-  std::vector<std::vector<Float_t>> eta_;
-  std::vector<std::vector<Short_t>> nhit_;
-  std::vector<std::vector<Short_t>> nhitposs_;
-  std::vector<std::vector<Short_t>> hft_;
+  std::vector<std::vector<double>> dca_;
+  std::vector<std::vector<double>> pt_;
+  std::vector<std::vector<double>> eta_;
+  std::vector<std::vector<int>> nhit_;
+  std::vector<std::vector<int>> nhitposs_;
+  std::vector<std::vector<int>> hft_;
   ClassDef(StProductionQA, 0);
 };
 
