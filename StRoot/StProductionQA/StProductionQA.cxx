@@ -74,6 +74,8 @@ Int_t StProductionQA::Make() {
   if (vz_.size())
     tree_->Fill();
   
+  SecondaryAna();
+  
   return kStOK;
 }
 
@@ -203,7 +205,6 @@ int StProductionQA::VertexLoop() {
     }
     
     vz_.push_back(vz);
-    h_vz_->Fill(vz);
     nprim_.push_back(nprim);
     refmult_.push_back(refmult);
     rank_.push_back(rank);
@@ -218,4 +219,17 @@ int StProductionQA::VertexLoop() {
   return kStOK;
 }
 
-
+void StProductionQA::SecondaryAna() {
+  
+  Int_t nVertices = muDst_->numberOfPrimaryVertices();
+  
+  for (int i = 0; i < nVertices; ++i) {
+    muDst_->setVertexIndex(i);
+    StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
+    double vz = Vposition.z();
+    int nprim = muDst_->primaryTracks()->GetEntries();
+    
+    h_vz_->Fill(vz);
+  }
+  
+}

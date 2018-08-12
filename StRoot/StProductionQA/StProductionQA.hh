@@ -46,6 +46,8 @@ private:
   int InitOutput();
   bool LoadEvent();
   
+  void SecondaryAna();
+  
   int VertexLoop();
   
   TFile* out_;
