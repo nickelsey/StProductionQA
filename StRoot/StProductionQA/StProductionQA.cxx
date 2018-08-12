@@ -223,7 +223,25 @@ void StProductionQA::SecondaryAna() {
   
   Int_t nVertices = muDst_->numberOfPrimaryVertices();
   
+  int selected_vertex = -1;
+  if (vpdvz_ != -9999) {
+    for (int i = 0; i < nVertices; ++i) {
+      muDst_->setVertexIndex(i);
+      StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
+      double vz = Vposition.z();
+      if (fabs(vpdvz_ - vz) < 3.0 ) {
+        selected_vertex = i;
+        break;
+      }
+    }
+  }
+  
+  if (selected_vertex == -1)
+    selected_vertex = 0;
+  
   for (int i = 0; i < nVertices; ++i) {
+    if (i == selected_vertex)
+      continue;
     muDst_->setVertexIndex(i);
     StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
     double vz = Vposition.z();
