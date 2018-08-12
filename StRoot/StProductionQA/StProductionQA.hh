@@ -70,6 +70,8 @@ private:
   int ist_;
   int ssd_;
   
+  TH1D* h_vz_;
+  
   std::vector<double> vz_;
   std::vector<int> refmult_;
   std::vector<int> nprim_;

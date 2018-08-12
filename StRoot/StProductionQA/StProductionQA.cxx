@@ -95,6 +95,7 @@ Int_t StProductionQA::Finish() {
   out_->cd();
   
   tree_->Write();
+  h_vz_->Write();
 
   out_->Close();
   return kStOk;
@@ -136,6 +137,9 @@ int StProductionQA::InitOutput() {
   tree_->Branch("nhitposs", &nhitposs_);
   tree_->Branch("eta", &eta_);
   tree_->Branch("hft", &hft_);
+  
+  h_vz_ = new TH1D("hvz", "", 200, -100, 100);
+  
   return kStOK;
 }
 
