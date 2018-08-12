@@ -181,9 +181,9 @@ int StProductionQA::VertexLoop() {
     std::vector<double> pt_tmp;
     std::vector<double> eta_tmp;
     std::vector<double> dca_tmp;
-    std::vector<int> nhit_tmp;
-    std::vector<int> nhitposs_tmp;
-    std::vector<int> hft_tmp;
+    std::vector<double> nhit_tmp;
+    std::vector<double> nhitposs_tmp;
+    std::vector<double> hft_tmp;
     
     StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
     double vz = Vposition.z();
