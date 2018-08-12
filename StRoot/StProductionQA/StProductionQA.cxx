@@ -203,6 +203,7 @@ int StProductionQA::VertexLoop() {
     }
     
     vz_.push_back(vz);
+    h_vz_->Fill(vz);
     nprim_.push_back(nprim);
     refmult_.push_back(refmult);
     rank_.push_back(rank);
