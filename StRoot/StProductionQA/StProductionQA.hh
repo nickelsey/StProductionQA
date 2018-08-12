@@ -81,9 +81,9 @@ private:
   std::vector<std::vector<double>> dca_;
   std::vector<std::vector<double>> pt_;
   std::vector<std::vector<double>> eta_;
-  std::vector<std::vector<int>> nhit_;
-  std::vector<std::vector<int>> nhitposs_;
-  std::vector<std::vector<int>> hft_;
+  std::vector<std::vector<double>> nhit_;
+  std::vector<std::vector<double>> nhitposs_;
+  std::vector<std::vector<double>> hft_;
   ClassDef(StProductionQA, 0);
 };
 
