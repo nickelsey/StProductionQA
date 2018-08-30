@@ -24,7 +24,7 @@
 
 class StEfficiencyQA : public StMaker {
     public:
-        StEfficiencyQA(std::string outputFile = "StEfficiencyQA.root");
+        StEfficiencyQA(std::string outputFile = "StEfficiencyQA.root", std::string name = "StEfficiencyQA");
 
         ~StEfficiencyQA();
 

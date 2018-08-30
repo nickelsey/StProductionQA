@@ -13,7 +13,7 @@
 
 ClassImp(StEfficiencyQA);
 
-StEfficiencyQA::StEfficiencyQA(std::string outputFile) {
+StEfficiencyQA::StEfficiencyQA(std::string outputFile, std::string name) : StMaker(name.c_str()) {
 
     muDstMaker_ = nullptr;
     muDst_ = nullptr;
