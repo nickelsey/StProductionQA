@@ -62,19 +62,14 @@ Int_t StEfficiencyQA::Make() {
         LOG_ERROR << "Could not load MuDst" << endm;
         return kStOK;
     }
-    
-    if (event_ == nullptr) {
-        LOG_ERROR << "StMiniMcEvent Branch not loaded properly: exiting run loop" << endm;
-        return kStFatal;
-    }
   
-    if (!event_cuts_.AcceptEvent(event_))
+    if (!event_cuts_.AcceptEvent(muEvent_))
         return kStOK;
   
     TH1D* effic_curve_ = nullptr;
     int centrality = -1;
     if (p17id_cent_def_) {
-        p17id_cent_def_->setEvent(muEvent_->runId(), muEvent_->refMult(), muEvent_->runInfo().zdcCoincidenceRate(), event_->vertexZ());
+        p17id_cent_def_->setEvent(muEvent_->runId(), muEvent_->refMult(), muEvent_->runInfo().zdcCoincidenceRate(), muEvent_->primaryVertexPosition().z());
         centrality = p17id_cent_def_->centrality9();
         if (centrality < 0 || centrality > 8)
             return kStOK;
