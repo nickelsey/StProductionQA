@@ -29,6 +29,7 @@ void efficiency_qa(int nEvents = 1e9,
   gROOT->Macro("loadMuDst.C");
   
   // load local libraries
+  gSystem->Load("StChain");
   gSystem->Load("libStEfficiencyQA.so");
   
   StChain* chain = new StChain("StChain");
