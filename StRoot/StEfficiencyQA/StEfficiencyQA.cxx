@@ -34,14 +34,15 @@ StEfficiencyQA::~StEfficiencyQA() {
 }
 
 bool StEfficiencyQA::LoadEfficiencyCurves(std::string filename) {
-    TFile tmp(filename.c_str(), "READ");
+    effic_file_ = new TFile(filename.c_str(), "READ");
 
     for (int i = 0; i < 9; ++i) {
         std::string name = "cent_bin_" + std::to_string(i);
         std::string clone_name = name + "_clone";
-        TH1D* h = (TH1D*) tmp.Get(name.c_str())->Clone(clone_name.c_str());
+        TH1D* h = (TH1D*) effic_file_.Get(name.c_str())->Clone(clone_name.c_str());
         if (h == nullptr)
             return false;
+      std::cout << "loading bin: " << i << std::endl;
         eff_curves_.push_back(h);
     }
     return true;
@@ -103,7 +104,7 @@ Int_t StEfficiencyQA::Make() {
 
     for (int i = 0; i < muDst_->primaryTracks()->GetEntries(); ++i) {
         StMuTrack* muTrack = (StMuTrack*) muDst_->primaryTracks(i);
-      std::cout << "cuts" << std::endl;
+  
         if (muTrack->flag() < 0)
             continue;
         if (muTrack->dcaGlobal().mag() > maxDCA_)
@@ -114,7 +115,7 @@ Int_t StEfficiencyQA::Make() {
             continue;
         if (fabs(muTrack->eta()) > 1.0)
             continue;
-      std::cout << "hisotgrams" << std::endl;
+  
         data_nhit_->Fill(centrality, muTrack->pt(), muTrack->nHitsFit());
         data_dca_->Fill(centrality, muTrack->pt(), muTrack->dcaGlobal().mag());
         data_eta_->Fill(centrality, muTrack->pt(), muTrack->eta());
@@ -124,10 +125,10 @@ Int_t StEfficiencyQA::Make() {
         pt_->Fill(centrality, muTrack->pt());
       
         double efficiency = 1.0;
-      std::cout << "efficiency" << std::endl;
+      
         if (effic_curve_ && muTrack->pt() < 4.5)
             efficiency = effic_curve_->GetBinContent(effic_curve_->FindBin(muTrack->pt()));
-      std::cout << "pt" << std::endl;
+  
         pt_corr_->Fill(centrality, muTrack->pt(), 1.0 / efficiency);
         ave_effic_->Fill(centrality, muTrack->pt(), efficiency);
     }

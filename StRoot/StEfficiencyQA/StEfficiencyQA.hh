@@ -70,7 +70,7 @@ class StEfficiencyQA : public StMaker {
         bool SelectVertex();
         
         TFile* out_;
-
+        TFile* effic_file_;
         EventCuts event_cuts_;
 
         StMuDstMaker* muDstMaker_;
