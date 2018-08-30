@@ -39,7 +39,7 @@ bool StEfficiencyQA::LoadEfficiencyCurves(std::string filename) {
     for (int i = 0; i < 9; ++i) {
         std::string name = "cent_bin_" + std::to_string(i);
         std::string clone_name = name + "_clone";
-        TH1D* h = (TH1D*) effic_file_.Get(name.c_str())->Clone(clone_name.c_str());
+        TH1D* h = (TH1D*) effic_file_->Get(name.c_str())->Clone(clone_name.c_str());
         if (h == nullptr)
             return false;
       std::cout << "loading bin: " << i << std::endl;
