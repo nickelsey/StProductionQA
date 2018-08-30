@@ -36,8 +36,8 @@ void efficiency_qa(int nEvents = 1e9,
 
   std::string outname = std::string(nametag) + ".root";
   StEfficiencyQA* qa_maker = new StEfficiencyQA(outname);
-  qa_maker->EventCuts().SetVzRange(-30, 30);
-  qa_maker->EventCuts().SetRefMultRange(0, 7000);
+  qa_maker->GetEventCuts().SetVzRange(-30, 30);
+  qa_maker->GetEventCuts().SetRefMultRange(0, 7000);
   qa_maker->SetDCAMax(dcaMax);
   qa_maker->SetMinFitPoints(nHitMin);
   qa_maker->SetMinFitFrac(nHitFracMin);
