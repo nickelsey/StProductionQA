@@ -11,6 +11,16 @@
 
 #include <iostream>
 
+#include "StMuDSTMaker/COMMON/StMuDstMaker.h"
+#include "StMuDSTMaker/COMMON/StMuDst.h"
+#include "StMuDSTMaker/COMMON/StMuEvent.h"
+#include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
+#include "StMuDSTMaker/COMMON/StMuTrack.h"
+#include "StEvent/StBTofHeader.h"
+#include "StEvent/StZdcTriggerDetector.h"
+#include "StEvent/StEvent.h"
+#include "StEvent/StTpcHitCollection.h"
+
 ClassImp(StEfficiencyQA);
 
 StEfficiencyQA::StEfficiencyQA(std::string outputFile) {
