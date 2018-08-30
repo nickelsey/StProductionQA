@@ -57,38 +57,34 @@ int StEfficiencyQA::Init() {
 
 
 Int_t StEfficiencyQA::Make() {
-  std::cout << "in make" << std::endl;
+  
     if (LoadEvent() == false) {
         LOG_ERROR << "Could not load MuDst" << endm;
         return kStOK;
     }
-  std::cout << "loaded event" << std::endl;
+  
     if (!SelectVertex())
         return kStOK;
-  std::cout << "loaded vertex" << std::endl;
+
     if (!event_cuts_.AcceptEvent(muEvent_))
         return kStOK;
-  std::cout << "accepted event" << std::endl;
+  
     TH1D* effic_curve_ = nullptr;
     int centrality = -1;
     if (p17id_cent_def_) {
-      std::cout << "loading p17id centrality" << std::endl;
         p17id_cent_def_->setEvent(muEvent_->runId(), muEvent_->refMult(), muEvent_->runInfo().zdcCoincidenceRate(), muEvent_->primaryVertexPosition().z());
         centrality = p17id_cent_def_->centrality9();
         if (centrality < 0 || centrality > 8)
             return kStOK;
         effic_curve_ = eff_curves_[centrality];
-      std::cout << "success" << std::endl;
     }
     else if (p16id_cent_def_) {
-      std::cout << "loading p16id centrality" << std::endl;
         p16id_cent_def_->init(muEvent_->runId());
         p16id_cent_def_->initEvent(muEvent_->grefmult(), muEvent_->primaryVertexPosition().z(), muEvent_->runInfo().zdcCoincidenceRate());
         centrality = p16id_cent_def_->getCentralityBin9();
         if (centrality < 0 || centrality > 8)
             return kStOK;
         effic_curve_ = eff_curves_[centrality];
-      std::cout << "success" << std::endl;
     }
     else {
         LOG_ERROR << "error: no centrality definition created" << endm;
@@ -99,16 +95,15 @@ Int_t StEfficiencyQA::Make() {
         return kStOK;
     if (muEvent_->numberOfIstHits() || muEvent_->numberOfSsdHits())
         return kStOK;
-  std::cout << "no hft hits" << std::endl;
+  
     vz_->Fill(muEvent_->primaryVertexPosition().z());
     refmult_->Fill(muEvent_->refMult());
     grefmult_->Fill(muEvent_->grefmult());
     centrality_->Fill(centrality);
-    std::cout << "filled th1ds" << std::endl;
 
     for (int i = 0; i < muDst_->primaryTracks()->GetEntries(); ++i) {
-      std::cout << "looping tracks" << std::endl;
         StMuTrack* muTrack = (StMuTrack*) muDst_->primaryTracks(i);
+      std::cout << "cuts" << std::endl;
         if (muTrack->flag() < 0)
             continue;
         if (muTrack->dcaGlobal().mag() > maxDCA_)
@@ -119,7 +114,7 @@ Int_t StEfficiencyQA::Make() {
             continue;
         if (fabs(muTrack->eta()) > 1.0)
             continue;
-        
+      std::cout << "hisotgrams" << std::endl;
         data_nhit_->Fill(centrality, muTrack->pt(), muTrack->nHitsFit());
         data_dca_->Fill(centrality, muTrack->pt(), muTrack->dcaGlobal().mag());
         data_eta_->Fill(centrality, muTrack->pt(), muTrack->eta());
@@ -129,15 +124,14 @@ Int_t StEfficiencyQA::Make() {
         pt_->Fill(centrality, muTrack->pt());
       
         double efficiency = 1.0;
-      
+      std::cout << "efficiency" << std::endl;
         if (effic_curve_ && muTrack->pt() < 4.5)
             efficiency = effic_curve_->GetBinContent(effic_curve_->FindBin(muTrack->pt()));
-      
+      std::cout << "pt" << std::endl;
         pt_corr_->Fill(centrality, muTrack->pt(), 1.0 / efficiency);
         ave_effic_->Fill(centrality, muTrack->pt(), efficiency);
     }
-
-std::cout << "done with event" << std::endl;
+  
     return kStOK;
 }
 
