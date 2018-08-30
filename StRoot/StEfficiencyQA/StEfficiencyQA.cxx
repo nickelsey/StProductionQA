@@ -63,6 +63,9 @@ Int_t StEfficiencyQA::Make() {
         return kStOK;
     }
   
+    if (!SelectVertex())
+        return kStOK;
+  
     if (!event_cuts_.AcceptEvent(muEvent_))
         return kStOK;
   
@@ -222,5 +225,28 @@ bool StEfficiencyQA::LoadEvent() {
 }
 
 bool StEfficiencyQA::SelectVertex() {
-
+  Int_t nVertices = muDst_->numberOfPrimaryVertices();
+  Int_t usedVertex = -1;
+  StBTofHeader* tofheader = muDst_->btofHeader();
+  if (tofheader) {
+    double vpdVz = tofheader->vpdVz(0);
+    if (vpdVz == -999) { muDst_->setVertexIndex(0); return kFALSE; }
+    for (Int_t i = 0; i < nVertices; ++i) {
+      muDst_->setVertexIndex(i);
+      StThreeVectorF Vposition = muDst_->event()->primaryVertexPosition();
+      Double_t vz = Vposition.z();
+      if (fabs(vz-vpdVz) < 3.0) {
+        usedVertex = i;
+        break;
+      }
+    }
+  }
+  if (usedVertex != -1) {
+    muDst_->setVertexIndex(usedVertex);
+    return kTRUE;
+  }
+  else {
+    muDst_->setVertexIndex(0);
+    return kFALSE;
+  }
 }

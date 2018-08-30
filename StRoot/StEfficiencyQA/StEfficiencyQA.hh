@@ -91,7 +91,7 @@ class StEfficiencyQA : public StMaker {
   
         TH2D* pt_;
 
-        TH2D* corr_pt_;
+        TH2D* pt_corr_;
         TProfile2D* ave_effic_;
 
         int minFit_;
