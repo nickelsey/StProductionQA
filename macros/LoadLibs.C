@@ -42,6 +42,7 @@ void LoadLibs()
     //our libs
     "libs/libStProductionQA.so",
     "libs/libStProductionTrackQA.so",
+    "libs/libStEfficiencyQA.so",
     NULL
   };
   
