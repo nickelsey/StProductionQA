@@ -7,6 +7,8 @@
 #include "TMath.h"
 #include "TTree.h"
 
+#include "TString.h"
+
 #include "StRefMultCorr/CentralityMaker.h"
 
 #include <iostream>
@@ -46,13 +48,10 @@ bool StEfficiencyQA::LoadEfficiencyCurves(std::string filename) {
 }
 
 int StEfficiencyQA::Init() {
-  std::cout << "initialization" << std::endl;
     if (InitInput() != kStOK)
         return kStFatal;
-  std::cout << "input loaded" << std::endl;
     if (InitOutput() != kStOK)
         return kStFatal;
-  std::cout << "output loaded" << std::endl;
     return kStOK;
 }
 
@@ -171,23 +170,24 @@ int StEfficiencyQA::InitInput() {
         LOG_ERROR << "No muDstMaker found in chain: StEfficiencyQA init failed" << endm;
         return kStFatal;
     }
-  std::cout << "found mudstmaker" << std::endl;
-    if (use_p17id_cent_) {
-      std::cout << " p17id centrality" << std::endl;
-      p17id_cent_def_ = new CentralityDef();
+  
+    if (TString(muDstMaker_->getFile()).Contains("P17id") ||
+        TString(muDstMaker_->getFile()).Contains("P18if") ) {
+  
+        p17id_cent_def_ = new CentralityDef();
         p16id_cent_def_ = nullptr;
-      
     }
-    else {
-      std::cout << "p16id centrality" << std::endl;
-      p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
+    else if (TString(muDstMaker_->getFile()).Contains("P16id") ){
+        p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
         p16id_cent_def_->setVzForWeight(6, -6.0, 6.0);
         p16id_cent_def_->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_vpd30_vpd5_Run14_P16id.txt");
         p17id_cent_def_ = nullptr;
-      
     }
+  else {
+    LOG_ERROR << "could not discover production tag" << endm;
+    return kStFatal;
+  }
   
-  std::cout << "done loading input" << std::endl;
     return kStOK;
 }
 
