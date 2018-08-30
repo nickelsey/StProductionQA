@@ -22,14 +22,13 @@ void efficiency_qa(int nEvents = 1e9,
                    int trigSet = 1,
                    double dcaMax = 1.0,
                    int nHitMin = 20,
-                   double nHitFracMin = 0.52);
+                   double nHitFracMin = 0.52)
 {
   // load STAR libraries
   gROOT->Macro("LoadLogger.C");
   gROOT->Macro("loadMuDst.C");
   
   // load local libraries
-  gSystem->Load("StChain");
   gSystem->Load("libStEfficiencyQA.so");
   
   StChain* chain = new StChain("StChain");
