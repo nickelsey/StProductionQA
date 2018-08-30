@@ -30,6 +30,7 @@ void efficiency_qa(int nEvents = 1e9,
   
   // load local libraries
   gSystem->Load("libStEfficiencyQA.so");
+  gSystem->Load("libStRefMultCorr.so");
   
   StChain* chain = new StChain("StChain");
   StMuDstMaker* muDstMaker = new StMuDstMaker(0, 0, "", muFileList, "", nFiles);
