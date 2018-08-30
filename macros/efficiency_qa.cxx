@@ -45,22 +45,22 @@ void efficiency_qa(int nEvents = 1e9,
   // set triggers to be reproduced
   switch (trigSet) {
     case 0:
-      qa_maker->Cuts().AddTrigger(450202);
-      qa_maker->Cuts().AddTrigger(450212);
-      qa_maker->Cuts().AddTrigger(450203);
-      qa_maker->Cuts().AddTrigger(450213);
+      qa_maker->GetEventCuts().AddTrigger(450202);
+      qa_maker->GetEventCuts().AddTrigger(450212);
+      qa_maker->GetEventCuts().AddTrigger(450203);
+      qa_maker->GetEventCuts().AddTrigger(450213);
       break;
     case 1:
-      qa_maker->Cuts().AddTrigger(450010);
-      qa_maker->Cuts().AddTrigger(450020);
+      qa_maker->GetEventCuts().AddTrigger(450010);
+      qa_maker->GetEventCuts().AddTrigger(450020);
       break;
     case 2:
-      qa_maker->Cuts().AddTrigger(450010);
-      qa_maker->Cuts().AddTrigger(450020);
-      qa_maker->Cuts().AddTrigger(450008);
-      qa_maker->Cuts().AddTrigger(450018);
-      qa_maker->Cuts().AddTrigger(450012);
-      qa_maker->Cuts().AddTrigger(450022);
+      qa_maker->GetEventCuts().AddTrigger(450010);
+      qa_maker->GetEventCuts().AddTrigger(450020);
+      qa_maker->GetEventCuts().AddTrigger(450008);
+      qa_maker->GetEventCuts().AddTrigger(450018);
+      qa_maker->GetEventCuts().AddTrigger(450012);
+      qa_maker->GetEventCuts().AddTrigger(450022);
     default :
       break;
   }
