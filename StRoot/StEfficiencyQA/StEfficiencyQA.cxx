@@ -1,10 +1,7 @@
 #include "StEfficiencyQA.hh"
 
 #include "St_base/StMessMgr.h"
-#include "StMiniMcEvent/StMiniMcPair.h"
-#include "StMiniMcEvent/StTinyMcTrack.h"
-#include "StMiniMcEvent/StContamPair.h"
-
+#include "StEvent/StBTofHeader.h"
 #include "StMuDSTMaker/COMMON/StMuTrack.h"
 
 #include "TMath.h"
