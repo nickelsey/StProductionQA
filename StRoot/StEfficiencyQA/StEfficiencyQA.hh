@@ -35,7 +35,7 @@ class StEfficiencyQA : public StMaker {
         bool LoadEfficiencyCurves(std::string filename);
 
         void SetEventCuts(EventCuts cuts) {event_cuts_ = cuts;}
-        EventCuts& EventCuts()            {return event_cuts_;}
+        EventCuts& GetEventCuts()         {return event_cuts_;}
 
         // set track cuts for matched tracks
         void SetDCAMax(double dca) {maxDCA_ = dca;}

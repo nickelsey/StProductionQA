@@ -72,6 +72,7 @@ Int_t StEfficiencyQA::Make() {
         return kStOK;
   
     TH1D* effic_curve_ = nullptr;
+    int centrality = -1;
     if (p17id_cent_def_) {
         p17id_cent_def_->setEvent(muEvent_->runId(), muEvent_->refMult(), muEvent_->runInfo().zdcCoincidenceRate(), event_->vertexZ());
         centrality = p17id_cent_def_->centrality9();
