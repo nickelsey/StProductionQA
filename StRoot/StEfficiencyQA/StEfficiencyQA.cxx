@@ -173,21 +173,23 @@ int StEfficiencyQA::InitInput() {
     }
   std::cout << "found mudstmaker" << std::endl;
     if (TString(muDstMaker_->GetFile()).Contains("SL17d")) {
-        p17id_cent_def_ = new CentralityDef();
+      std::cout << " p17id centrality" << std::endl;
+      p17id_cent_def_ = new CentralityDef();
         p16id_cent_def_ = nullptr;
+      
     }
-  std::cout << "finished p17id centrality" << std::endl;
     else if (TString(muDstMaker_->GetFile()).Contains("SL16d")) {
-        p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
+      std::cout << "p16id centrality" << std::endl;
+      p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
         p16id_cent_def_->setVzForWeight(6, -6.0, 6.0);
         p16id_cent_def_->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_vpd30_vpd5_Run14_P16id.txt");
         p17id_cent_def_ = nullptr;
+      
     }
-  std::cout << "finished p16id centrality" << std::endl;
     else {
         LOG_ERROR << "Library could not be discovered: exiting" << endm;
         return kStFatal;
-    }   
+    }
   std::cout << "done loading input" << std::endl;
     return kStOK;
 }
