@@ -172,13 +172,13 @@ int StEfficiencyQA::InitInput() {
         return kStFatal;
     }
   std::cout << "found mudstmaker" << std::endl;
-    if (TString(muDstMaker_->GetFile()).Contains("SL17d")) {
+    if (use_p17id_cent_) {
       std::cout << " p17id centrality" << std::endl;
       p17id_cent_def_ = new CentralityDef();
         p16id_cent_def_ = nullptr;
       
     }
-    else if (TString(muDstMaker_->GetFile()).Contains("SL16d")) {
+    else {
       std::cout << "p16id centrality" << std::endl;
       p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
         p16id_cent_def_->setVzForWeight(6, -6.0, 6.0);
@@ -186,10 +186,7 @@ int StEfficiencyQA::InitInput() {
         p17id_cent_def_ = nullptr;
       
     }
-    else {
-        LOG_ERROR << "Library could not be discovered: exiting" << endm;
-        return kStFatal;
-    }
+  
   std::cout << "done loading input" << std::endl;
     return kStOK;
 }
