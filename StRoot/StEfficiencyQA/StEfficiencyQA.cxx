@@ -171,13 +171,13 @@ int StEfficiencyQA::InitInput() {
         return kStFatal;
     }
   
-    if (TString(muDstMaker_->getFile()).Contains("P17id") ||
-        TString(muDstMaker_->getFile()).Contains("P18if") ) {
+    if (TString(muDstMaker_->GetFile()).Contains("P17id") ||
+        TString(muDstMaker_->GetFile()).Contains("P18if") ) {
   
         p17id_cent_def_ = new CentralityDef();
         p16id_cent_def_ = nullptr;
     }
-    else if (TString(muDstMaker_->getFile()).Contains("P16id") ){
+    else if (TString(muDstMaker_->GetFile()).Contains("P16id") ){
         p16id_cent_def_ = CentralityMaker::instance()->getgRefMultCorr_P16id();
         p16id_cent_def_->setVzForWeight(6, -6.0, 6.0);
         p16id_cent_def_->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_vpd30_vpd5_Run14_P16id.txt");
