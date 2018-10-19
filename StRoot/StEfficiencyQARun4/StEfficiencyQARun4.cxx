@@ -1,4 +1,4 @@
-#include "StEfficiencyQARun4Run4.hh"
+#include "StEfficiencyQARun4.hh"
 
 #include "St_base/StMessMgr.h"
 #include "StEvent/StBTofHeader.h"
