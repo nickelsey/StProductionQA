@@ -207,10 +207,10 @@ Bool_t EventCutsRun4::SetZdcVzRange(Double_t min, Double_t max) {
 }
 
 Bool_t EventCutsRun4::SetCtbSumRange(Double_t min, Double_t max) {
-    mCheckCbtSum = kTRUE;
-    mMinCbtSum = min;
-    mMaxCbtSum = max;
-    return mCheckCbtSum;
+    mCheckCtbSum = kTRUE;
+    mMinCtbSum = min;
+    mMaxCtbSum = max;
+    return mCheckCtbSum;
 }
 
 void EventCutsRun4::AddTrigger(unsigned int trigger) {
