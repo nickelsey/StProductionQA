@@ -38,10 +38,10 @@ void efficiency_qa_run4(int nEvents = 1e9,
   StEfficiencyQARun4* qa_maker = new StEfficiencyQARun4(outname, "StEfficiencyQA");
   qa_maker->GetEventCuts().SetVzRange(-30, 30);
   qa_maker->GetEventCuts().SetRefMultRange(0, 7000);
-  qa_maker->GetEventCuts().SetZdcEastRange(5, 999999);
-  qa_maker->GetEventCuts().SetZdcWestRange(5, 999999);
-  qa_maker->GetEventCuts().SetZdcVzRange(-30, 30);
-  qa_maker->GetEventCuts().SetCtbSumRange(75, 999999);
+  qa_maker->GetEventCuts().SetZdcEastRange(5, 9999999);
+  qa_maker->GetEventCuts().SetZdcWestRange(5, 9999999);
+  //qa_maker->GetEventCuts().SetZdcVzRange(-30, 30);
+  //qa_maker->GetEventCuts().SetCtbSumRange(75, 999999);
   qa_maker->SetDCAMax(dcaMax);
   qa_maker->SetMinFitPoints(nHitMin);
   qa_maker->SetMinFitFrac(nHitFracMin);
