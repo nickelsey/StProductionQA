@@ -11,9 +11,9 @@ template <typename T> string tostr(const T& t) {
   return os.str();
 }
 
-ClassImp(EventCuts)
+ClassImp(EventCutsRun4)
 
-EventCuts::EventCuts()
+EventCutsRun4::EventCutsRun4()
   : mNEvents(0), mEventsFailed(0), mEventsFailedVx(0),
     mEventsFailedVy(0),  mEventsFailedVz(0),
     mEventsFailedRef(0), mEventsFailedTrigger(),
@@ -28,11 +28,11 @@ EventCuts::EventCuts()
     mMinZdcWest(0), mMaxZdcWest(0), mMinZdcVz(0),
     mMaxZdcVz(0), mMinCtbSum(0), mMaxCtbSum(0) {}
 
-EventCuts::~EventCuts() {
+EventCutsRun4::~EventCutsRun4() {
   
 }
 
-bool EventCuts::AcceptEvent(StMuEvent* event) {
+bool EventCutsRun4::AcceptEvent(StMuEvent* event) {
   /* checks all cuts for all events, event if it 
      has already failed one - gives a better idea of 
      relative acceptance rates 
@@ -53,7 +53,7 @@ bool EventCuts::AcceptEvent(StMuEvent* event) {
   return accept_event;
 }
 
-Bool_t EventCuts::AcceptVx(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptVx(StMuEvent* event) {
   Double_t vx = event->primaryVertexPosition().x();
   if (vx > mMaxVx || vx < mMinVx) {
     LOG_DEBUG << "Fail: Vx=" << vx << " minVx=" << mMinVx << " maxVx=" << mMaxVx << endm;
@@ -64,7 +64,7 @@ Bool_t EventCuts::AcceptVx(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptVy(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptVy(StMuEvent* event) {
   Double_t vy = event->primaryVertexPosition().y();
   if (vy > mMaxVy || vy < mMinVy) {
     LOG_DEBUG << "Fail: Vy=" << vy << " minVy=" << mMinVy << " maxVy=" << mMaxVy << endm;
@@ -75,7 +75,7 @@ Bool_t EventCuts::AcceptVy(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptVz(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptVz(StMuEvent* event) {
   Double_t vz = event->primaryVertexPosition().z();
   if (vz > mMaxVz || vz < mMinVz) {
     LOG_DEBUG << "Fail: Vz=" << vz << " minVz=" << mMinVz << " maxVz=" << mMaxVz << endm;
@@ -86,7 +86,7 @@ Bool_t EventCuts::AcceptVz(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptTrigger(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptTrigger(StMuEvent* event) {
   Bool_t accept = kFALSE;
   for (unsigned int i = 0; i < mTriggers.size(); ++i) {
     if (event->triggerIdCollection().nominal().isTrigger(mTriggers[i]) == kTRUE) {
@@ -98,7 +98,7 @@ Bool_t EventCuts::AcceptTrigger(StMuEvent* event) {
   return accept;
 }
 
-Bool_t EventCuts::AcceptRefMult(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptRefMult(StMuEvent* event) {
   UInt_t refmult = mUseGrefMult ? event->grefmult() : event->refMult();
   if (refmult > mMaxRef || refmult < mMinRef) {
     LOG_DEBUG << "Fail: refmult=" << refmult << " min refmult=" << mMinRef << " max refmult=" << mMaxRef << endm;
@@ -109,7 +109,7 @@ Bool_t EventCuts::AcceptRefMult(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptZdcEast(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptZdcEast(StMuEvent* event) {
   Double_t zdcE = event->runInfo()->zdcEastRate();
   if (zdcE > mMaxZdcEast || zdcE < mMinZdcEast) {
     LOG_DEBUG << "Fail: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << endm;
@@ -120,7 +120,7 @@ Bool_t EventCuts::AcceptZdcEast(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptZdcWest(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptZdcWest(StMuEvent* event) {
   Double_t zdcW = event->runInfo()->zdcWestRate();
   if (zdcW > mMaxZdcWest || zdcW < mMinZdcWest) {
     LOG_DEBUG << "Fail: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << endm;
@@ -131,7 +131,7 @@ Bool_t EventCuts::AcceptZdcWest(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptZdcVz(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptZdcVz(StMuEvent* event) {
   Double_t zdcVz = event->zdcTriggerDetector()->vertexZ();
   if (zdcVz > mMaxZdcVz || zdcVz < mMinZdcVz) {
     LOG_DEBUG << "Fail: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << endm;
@@ -142,7 +142,7 @@ Bool_t EventCuts::AcceptZdcVz(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::AcceptCtbSum(StMuEvent* event) {
+Bool_t EventCutsRun4::AcceptCtbSum(StMuEvent* event) {
   Double_t ctbSum = event->ctbMultiplicity();
   if (ctbSum > mMaxCtbSum || ctbSum < mMinCtbSum) {
     LOG_DEBUG << "Fail: CTB Sum=" << ctbSum << " minCTB Sum=" << mMinCtbSum << " maxCtb Sum=" << mMaxCtbSum << endm;
@@ -153,67 +153,67 @@ Bool_t EventCuts::AcceptCtbSum(StMuEvent* event) {
   return kTRUE;
 }
 
-Bool_t EventCuts::SetVxRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetVxRange(Double_t min, Double_t max) {
   mCheckVx = kTRUE;
   mMinVx = min;
   mMaxVx = max;
   return mCheckVx;
 }
 
-Bool_t EventCuts::SetVyRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetVyRange(Double_t min, Double_t max) {
   mCheckVy = kTRUE;
   mMinVy = min;
   mMaxVy = max;
   return mCheckVy;
 }
 
-Bool_t EventCuts::SetVzRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetVzRange(Double_t min, Double_t max) {
   mCheckVz = kTRUE;
   mMinVz = min;
   mMaxVz = max;
   return mCheckVz;
 }
 
-Bool_t EventCuts::SetRefMultRange(UInt_t min, UInt_t max) {
+Bool_t EventCutsRun4::SetRefMultRange(UInt_t min, UInt_t max) {
   mCheckRefMult = kTRUE;
   mMinRef = min;
   mMaxRef = max;
   return mCheckRefMult;
 }
 
-void   EventCuts::UsegRefMult(bool use_gref) {
+void   EventCutsRun4::UsegRefMult(bool use_gref) {
   mUseGrefMult = use_gref;
 }
 
-Bool_t EventCuts::SetZdcEastRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetZdcEastRange(Double_t min, Double_t max) {
     mCheckZdcEast = kTRUE;
     mMinZdcEast = min;
     mMaxZdcEast = max;
     return mCheckZdcEast;
 }
 
-Bool_t EventCuts::SetZdcWestRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetZdcWestRange(Double_t min, Double_t max) {
     mCheckZdcWest = kTRUE;
     mMinZdcWest = min;
     mMaxZdcWest = max;
     return mCheckZdcWest;
 }
 
-Bool_t EventCuts::SetZdcVzRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetZdcVzRange(Double_t min, Double_t max) {
     mCheckZdcVz = kTRUE;
     mMinZdcVz = min;
     mMaxZdcVz = max;
     return mCheckZdcVz;
 }
 
-Bool_t EventCuts::SetCtbSumRange(Double_t min, Double_t max) {
+Bool_t EventCutsRun4::SetCtbSumRange(Double_t min, Double_t max) {
     mCheckCbtSum = kTRUE;
     mMinCbtSum = min;
     mMaxCbtSum = max;
     return mCheckCbtSum;
 }
 
-void EventCuts::AddTrigger(unsigned int trigger) {
+void EventCutsRun4::AddTrigger(unsigned int trigger) {
   if(std::find(mTriggers.begin(), mTriggers.end(), trigger) == mTriggers.end()) {
     mCheckTrigger = kTRUE;
     mTriggers.push_back(trigger);
@@ -221,7 +221,7 @@ void EventCuts::AddTrigger(unsigned int trigger) {
   }
 }
 
-void EventCuts::AddTrigger(std::vector<unsigned int> triggers) {
+void EventCutsRun4::AddTrigger(std::vector<unsigned int> triggers) {
   for (unsigned id = 0; id < triggers.size(); ++id) {
     UInt_t trigger = triggers[id];
     if(std::find(mTriggers.begin(), mTriggers.end(), trigger) == mTriggers.end()) {
@@ -232,8 +232,8 @@ void EventCuts::AddTrigger(std::vector<unsigned int> triggers) {
   }
 }
 
-void EventCuts::PrintCuts() {
-  LOG_INFO << "// ------------------ EventCuts Cuts ------------------ //" << endm;
+void EventCutsRun4::PrintCuts() {
+  LOG_INFO << "// ------------------ EventCutsRun4 Cuts ------------------ //" << endm;
   LOG_INFO << endm;
   if (mCheckVx || mCheckVy || mCheckVz) {LOG_INFO << "Vertex cuts: " << endm;}
   if (mCheckVx) {LOG_INFO << mMinVx << " < Vx < " << mMaxVx << endm;}
@@ -259,8 +259,8 @@ void EventCuts::PrintCuts() {
   LOG_INFO << " // ------------------        End Cuts        ------------------ //" << endm;
 }
 
-void  EventCuts::PrintStats() {
-  LOG_INFO << "// ------------------ EventCuts Stats ------------------ //" << endm;
+void  EventCutsRun4::PrintStats() {
+  LOG_INFO << "// ------------------ EventCutsRun4 Stats ------------------ //" << endm;
   LOG_INFO << "number of events:   " << mNEvents << endm;
   if (mCheckVx) {LOG_INFO << "events rejected by Vx cut: " << mEventsFailedVx << endm;
                    LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedVx / mNEvents << endm;}
