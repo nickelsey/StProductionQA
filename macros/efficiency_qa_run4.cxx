@@ -16,7 +16,7 @@
 
 void efficiency_qa_run4(int nEvents = 1e9,
                         const char* muFileList = "test.list",
-                        const char* nametag  = "StEfficiencyQA_example",
+                        const char* nametag  = "StEfficiencyQARun4",
                         int nFiles = 3,
                         int trigSet = 1,
                         double dcaMax = 1.0,
@@ -35,7 +35,7 @@ void efficiency_qa_run4(int nEvents = 1e9,
   StMuDstMaker* muDstMaker = new StMuDstMaker(0, 0, "", muFileList, "", nFiles);
 
   std::string outname = std::string(nametag) + ".root";
-  StEfficiencyQA* qa_maker = new StEfficiencyQA(outname, "StEfficiencyQA");
+  StEfficiencyQARun4* qa_maker = new StEfficiencyQA(outname, "StEfficiencyQA");
   qa_maker->GetEventCuts().SetVzRange(-30, 30);
   qa_maker->GetEventCuts().SetRefMultRange(0, 7000);
   qa_maker->GetEventCuts().SetZdcEastRange(5, 999999);
