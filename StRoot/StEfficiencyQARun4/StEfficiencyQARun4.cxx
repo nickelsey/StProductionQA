@@ -49,8 +49,8 @@ Int_t StEfficiencyQARun4::Make() {
         return kStOK;
     }
     
-    if (!SelectVertex())
-        return kStOK;
+    //if (!SelectVertex())
+    //    return kStOK;
     
     if (!event_cuts_.AcceptEvent(muEvent_))
         return kStOK;
