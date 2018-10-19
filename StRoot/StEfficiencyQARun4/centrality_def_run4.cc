@@ -14,7 +14,7 @@ CentralityDefRun4::~CentralityDefRun4() {
   
 }
 
-int CentralityRun4::Centrality9(int refmult) {
+int CentralityDefRun4::Centrality9(int refmult) {
     for (int i = 0; i < cent_bin_9_.size(); ++i) {
         if (refmult >= cent_bin_9_[i])
             return i;
