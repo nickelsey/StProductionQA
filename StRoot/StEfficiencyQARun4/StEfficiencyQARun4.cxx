@@ -56,6 +56,8 @@ Int_t StEfficiencyQARun4::Make() {
         return kStOK;
     
     int centrality = cent_def_.centrality9(muEvent_->refMult());
+    if (centrality > 8 || centrality < 0)
+        return kStOK;
     TF2* effic_curve_ = run4_eff_.AuAuEff(centrality);
     
     vz_->Fill(muEvent_->primaryVertexPosition().z());
