@@ -43,18 +43,18 @@ int StEfficiencyQARun4::Init() {
 
 
 Int_t StEfficiencyQARun4::Make() {
-  
+    std::cout << "in make" << std::endl; 
     if (LoadEvent() == false) {
         LOG_ERROR << "Could not load MuDst" << endm;
         return kStOK;
     }
-  
+    std::cout << "loaded event" << std::endl;
     if (!SelectVertex())
         return kStOK;
-
+    std::cout << "selected vertex" << std::endl;
     if (!event_cuts_.AcceptEvent(muEvent_))
         return kStOK;
-  
+    std::cout << "passed cuts" << std::endl;
     int centrality = cent_def_.centrality9(muEvent_->refMult());
     TF2* effic_curve_ = run4_eff_.AuAuEff(centrality);
     
