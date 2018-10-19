@@ -25,7 +25,9 @@ rm -v libs/libStRefMultCorr.so
 rm -v libs/libStEfficiencyQA.so
 rm -v sandbox/libStRefMultCorr.so
 rm -v sandbox/libStEfficiencyQA.so
-
+rm -v libStEfficiencyQARun4.so
+rm -v libs/libStEfficiencyQARun4.so
+rm -v sandbox/libStEfficiencyQARun4.so
 
 setenv CXXFLAGSNEW "-pipe -fPIC -Wall -Woverloaded-virtual -ansi -Wno-long-long -pthread -m32 -std=c++11"
 #LDFLAGS       += -m32
@@ -34,7 +36,7 @@ echo "[i] Changing CXXFLAGS to: "${CXXFLAGSNEW}
 
 echo "[i] Running cons for StProductionQA"
 
-cons CXXFLAGS="${CXXFLAGSNEW}" +StProductionQA +StProductionTrackQA +StRefMultCorr +StEfficiencyQA
+cons CXXFLAGS="${CXXFLAGSNEW}" +StProductionQA +StProductionTrackQA +StRefMultCorr +StEfficiencyQA +StEfficiencyQARun4
 
 
 # places copies of the libraries into the local lib directory
@@ -48,7 +50,8 @@ find .sl*/lib -name "libStRefMultCorr.so" -exec cp -v {} ./libs/ \;
 find .sl*/lib -name "libStRefMultCorr.so" -exec cp -v {} ./sandbox/ \;
 find .sl*/lib -name "libStEfficiencyQA.so" -exec cp -v {} ./libs/ \;
 find .sl*/lib -name "libStEfficiencyQA.so" -exec cp -v {} ./sandbox/ \;
-
+find .sl*/lib -name "libStEfficiencyQARun4.so" -exec cp -v {} ./libs/ \;
+find .sl*/lib -name "libStEfficiencyQARun4.so" -exec cp -v {} ./sandbox/ \;
 
 echo "[i] Run a zero level test"
 root4star macros/LoadLibs.C -q -b
