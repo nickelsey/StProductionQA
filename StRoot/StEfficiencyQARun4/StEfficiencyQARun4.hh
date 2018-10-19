@@ -31,7 +31,7 @@ class StEfficiencyQARun4 : public StMaker {
         Run4Eff& EfficiencyCurves() {return run4_eff_;}
         
         // method for setting event cuts
-        void SetEventCuts(EventCuts cuts) {event_cuts_ = cuts;}
+        void SetEventCuts(EventCutsRun4 cuts) {event_cuts_ = cuts;}
         EventCutsRun4& GetEventCuts()         {return event_cuts_;}
 
         // set track cuts for matched tracks
