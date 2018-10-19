@@ -110,7 +110,7 @@ Bool_t EventCutsRun4::AcceptRefMult(StMuEvent* event) {
 }
 
 Bool_t EventCutsRun4::AcceptZdcEast(StMuEvent* event) {
-  Double_t zdcE = event->runInfo()->zdcEastRate();
+  Double_t zdcE = event->runInfo().zdcEastRate();
   if (zdcE > mMaxZdcEast || zdcE < mMinZdcEast) {
     LOG_DEBUG << "Fail: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << endm;
     mEventsFailedZdcEast++;
@@ -121,7 +121,7 @@ Bool_t EventCutsRun4::AcceptZdcEast(StMuEvent* event) {
 }
 
 Bool_t EventCutsRun4::AcceptZdcWest(StMuEvent* event) {
-  Double_t zdcW = event->runInfo()->zdcWestRate();
+  Double_t zdcW = event->runInfo().zdcWestRate();
   if (zdcW > mMaxZdcWest || zdcW < mMinZdcWest) {
     LOG_DEBUG << "Fail: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << endm;
     mEventsFailedZdcWest++;
@@ -132,7 +132,7 @@ Bool_t EventCutsRun4::AcceptZdcWest(StMuEvent* event) {
 }
 
 Bool_t EventCutsRun4::AcceptZdcVz(StMuEvent* event) {
-  Double_t zdcVz = event->zdcTriggerDetector()->vertexZ();
+  Double_t zdcVz = event->zdcTriggerDetector().vertexZ();
   if (zdcVz > mMaxZdcVz || zdcVz < mMinZdcVz) {
     LOG_DEBUG << "Fail: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << endm;
     mEventsFailedZdcVz++;

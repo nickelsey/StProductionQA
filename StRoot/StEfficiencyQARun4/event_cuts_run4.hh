@@ -33,7 +33,7 @@ class EventCutsRun4 : public TObject {
         void   UsegRefMult(Bool_t use_grefmult);
         Bool_t SetZdcEastRange(Double_t min, Double_t max);
         Bool_t SetZdcWestRange(Double_t min, Double_t max);
-        Bool_t SetZdcVzRange(Double_t min, double_t max);
+        Bool_t SetZdcVzRange(Double_t min, Double_t max);
         Bool_t SetCtbSumRange(Double_t min, Double_t max);
       
         /* by default all triggers are accepted. Once a trigger is
