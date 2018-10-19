@@ -48,41 +48,41 @@ bool EventCutsRun4::AcceptEvent(StMuEvent* event) {
   if (mCheckZdcWest && !AcceptZdcWest(event)) accept_event = kFALSE;
   if (mCheckZdcVz && !AcceptZdcVz(event))     accept_event = kFALSE;
   if (mCheckCtbSum && !AcceptCtbSum(event))   accept_event = kFALSE;
-  if (accept_event != kTRUE) {mEventsFailed++; LOG_DEBUG << "Event Failed" << endm;}
-  else {LOG_DEBUG << "Event Accepted" << endm;}
+  if (accept_event != kTRUE) {mEventsFailed++; std::cout << "Event Failed" << std::endl;}
+  else {std::cout << "Event Accepted" << std::endl;}
   return accept_event;
 }
 
 Bool_t EventCutsRun4::AcceptVx(StMuEvent* event) {
   Double_t vx = event->primaryVertexPosition().x();
   if (vx > mMaxVx || vx < mMinVx) {
-    LOG_DEBUG << "Fail: Vx=" << vx << " minVx=" << mMinVx << " maxVx=" << mMaxVx << endm;
+    std::cout << "Fail: Vx=" << vx << " minVx=" << mMinVx << " maxVx=" << mMaxVx << std::endl;
     mEventsFailedVx++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: Vx=" << vx << " minVx=" << mMinVx << " maxVx=" << mMaxVx << endm;
+  std::cout << "Pass: Vx=" << vx << " minVx=" << mMinVx << " maxVx=" << mMaxVx << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptVy(StMuEvent* event) {
   Double_t vy = event->primaryVertexPosition().y();
   if (vy > mMaxVy || vy < mMinVy) {
-    LOG_DEBUG << "Fail: Vy=" << vy << " minVy=" << mMinVy << " maxVy=" << mMaxVy << endm;
+    std::cout << "Fail: Vy=" << vy << " minVy=" << mMinVy << " maxVy=" << mMaxVy << std::endl;
     mEventsFailedVy++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: Vy=" << vy << " minVy=" << mMinVy << " maxVy=" << mMaxVy << endm;
+  std::cout << "Pass: Vy=" << vy << " minVy=" << mMinVy << " maxVy=" << mMaxVy << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptVz(StMuEvent* event) {
   Double_t vz = event->primaryVertexPosition().z();
   if (vz > mMaxVz || vz < mMinVz) {
-    LOG_DEBUG << "Fail: Vz=" << vz << " minVz=" << mMinVz << " maxVz=" << mMaxVz << endm;
+    std::cout << "Fail: Vz=" << vz << " minVz=" << mMinVz << " maxVz=" << mMaxVz << std::endl;
     mEventsFailedVz++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: Vz=" << vz << " minVz=" << mMinVz << " maxVz=" << mMaxVz << endm;
+  std::cout << "Pass: Vz=" << vz << " minVz=" << mMinVz << " maxVz=" << mMaxVz << std::endl;
   return kTRUE;
 }
 
@@ -91,65 +91,65 @@ Bool_t EventCutsRun4::AcceptTrigger(StMuEvent* event) {
   for (unsigned int i = 0; i < mTriggers.size(); ++i) {
     if (event->triggerIdCollection().nominal().isTrigger(mTriggers[i]) == kTRUE) {
       accept = kTRUE;
-      LOG_DEBUG << "Pass: trigger accepted=" << mTriggers[i] << endm;
+      std::cout << "Pass: trigger accepted=" << mTriggers[i] << std::endl;
     } else {mEventsFailedTrigger[i]++;}
   }
-  if (accept == kFALSE) {mEventsFailedTriggerTotal++; LOG_DEBUG << "Fail: no trigger accepted" << endm;}
+  if (accept == kFALSE) {mEventsFailedTriggerTotal++; std::cout << "Fail: no trigger accepted" << std::endl;}
   return accept;
 }
 
 Bool_t EventCutsRun4::AcceptRefMult(StMuEvent* event) {
   UInt_t refmult = mUseGrefMult ? event->grefmult() : event->refMult();
   if (refmult > mMaxRef || refmult < mMinRef) {
-    LOG_DEBUG << "Fail: refmult=" << refmult << " min refmult=" << mMinRef << " max refmult=" << mMaxRef << endm;
+    std::cout << "Fail: refmult=" << refmult << " min refmult=" << mMinRef << " max refmult=" << mMaxRef << std::endl;
     mEventsFailedRef++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: refmult=" << refmult << " min refmult=" << mMinRef << " max refmult=" << mMaxRef << endm;
+  std::cout << "Pass: refmult=" << refmult << " min refmult=" << mMinRef << " max refmult=" << mMaxRef << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptZdcEast(StMuEvent* event) {
   Double_t zdcE = event->runInfo().zdcEastRate();
   if (zdcE > mMaxZdcEast || zdcE < mMinZdcEast) {
-    LOG_DEBUG << "Fail: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << endm;
+    std::cout << "Fail: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << std::endl;
     mEventsFailedZdcEast++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << endm;
+  std::cout << "Pass: ZDC East=" << zdcE << " minZDC-E=" << mMinZdcEast << " maxZDC-E=" << mMaxZdcEast << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptZdcWest(StMuEvent* event) {
   Double_t zdcW = event->runInfo().zdcWestRate();
   if (zdcW > mMaxZdcWest || zdcW < mMinZdcWest) {
-    LOG_DEBUG << "Fail: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << endm;
+    std::cout << "Fail: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << std::endl;
     mEventsFailedZdcWest++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << endm;
+  std::cout << "Pass: ZDC West=" << zdcW << " minZDC-W=" << mMinZdcWest << " maxZDC-W=" << mMaxZdcWest << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptZdcVz(StMuEvent* event) {
   Double_t zdcVz = event->zdcTriggerDetector().vertexZ();
   if (zdcVz > mMaxZdcVz || zdcVz < mMinZdcVz) {
-    LOG_DEBUG << "Fail: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << endm;
+    std::cout << "Fail: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << std::endl;
     mEventsFailedZdcVz++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << endm;
+  std::cout << "Pass: ZDC Vz=" << zdcVz << " minZDC-Vz=" << mMinZdcVz << " maxZDC-Vz=" << mMaxZdcVz << std::endl;
   return kTRUE;
 }
 
 Bool_t EventCutsRun4::AcceptCtbSum(StMuEvent* event) {
   Double_t ctbSum = event->ctbMultiplicity();
   if (ctbSum > mMaxCtbSum || ctbSum < mMinCtbSum) {
-    LOG_DEBUG << "Fail: CTB Sum=" << ctbSum << " minCTB Sum=" << mMinCtbSum << " maxCtb Sum=" << mMaxCtbSum << endm;
+    std::cout << "Fail: CTB Sum=" << ctbSum << " minCTB Sum=" << mMinCtbSum << " maxCtb Sum=" << mMaxCtbSum << std::endl;
     mEventsFailedCtbSum++;
     return kFALSE;
   }
-  LOG_DEBUG << "Pass: CTB Sum=" << ctbSum << " minCTB Sum=" << mMinCtbSum << " maxCtb Sum=" << mMaxCtbSum << endm;
+  std::cout << "Pass: CTB Sum=" << ctbSum << " minCTB Sum=" << mMinCtbSum << " maxCtb Sum=" << mMaxCtbSum << std::endl;
   return kTRUE;
 }
 
@@ -233,54 +233,54 @@ void EventCutsRun4::AddTrigger(std::vector<unsigned int> triggers) {
 }
 
 void EventCutsRun4::PrintCuts() {
-  LOG_INFO << "// ------------------ EventCutsRun4 Cuts ------------------ //" << endm;
-  LOG_INFO << endm;
-  if (mCheckVx || mCheckVy || mCheckVz) {LOG_INFO << "Vertex cuts: " << endm;}
-  if (mCheckVx) {LOG_INFO << mMinVx << " < Vx < " << mMaxVx << endm;}
-  if (mCheckVy) {LOG_INFO << mMinVy << " < Vy < " << mMaxVy << endm;}
-  if (mCheckVz) {LOG_INFO << mMinVz << " < Vz < " << mMaxVz << endm;}
-  if (mCheckRefMult) {LOG_INFO << " Refmult Cuts: " << endm;}
-  if (mCheckRefMult && mUseGrefMult)  {LOG_INFO << "use grefmult" << endm;
-                                          LOG_INFO << mMinRef << " < gRefMult < " << mMaxRef << endm;}
-  if (mCheckRefMult && !mUseGrefMult) {LOG_INFO << "use refmult" << endm;
-                                          LOG_INFO << mMinRef << " < RefMult < " << mMaxRef << endm;}
-  if (mCheckZdcEast) {LOG_INFO << mMinZdcEast << " < Zdc-E < " << mMaxZdcEast << endm;}
-  if (mCheckZdcWest) {LOG_INFO << mMinZdcWest << " < Zdc-W < " << mMaxZdcWest << endm;} 
-  if (mCheckZdcVz) {LOG_INFO << mMinZdcVz << " < Zdc-Vz < " << mMaxZdcVz << endm;}
-  if (mCheckCtbSum) {LOG_INFO << mMinCtbSum << " < Ctb-Sum < " << mMaxCtbSum << endm;}
+  std::cout << "// ------------------ EventCutsRun4 Cuts ------------------ //" << std::endl;
+  std::cout << std::endl;
+  if (mCheckVx || mCheckVy || mCheckVz) {std::cout << "Vertex cuts: " << std::endl;}
+  if (mCheckVx) {std::cout << mMinVx << " < Vx < " << mMaxVx << std::endl;}
+  if (mCheckVy) {std::cout << mMinVy << " < Vy < " << mMaxVy << std::endl;}
+  if (mCheckVz) {std::cout << mMinVz << " < Vz < " << mMaxVz << std::endl;}
+  if (mCheckRefMult) {std::cout << " Refmult Cuts: " << std::endl;}
+  if (mCheckRefMult && mUseGrefMult)  {std::cout << "use grefmult" << std::endl;
+                                          std::cout << mMinRef << " < gRefMult < " << mMaxRef << std::endl;}
+  if (mCheckRefMult && !mUseGrefMult) {std::cout << "use refmult" << std::endl;
+                                          std::cout << mMinRef << " < RefMult < " << mMaxRef << std::endl;}
+  if (mCheckZdcEast) {std::cout << mMinZdcEast << " < Zdc-E < " << mMaxZdcEast << std::endl;}
+  if (mCheckZdcWest) {std::cout << mMinZdcWest << " < Zdc-W < " << mMaxZdcWest << std::endl;} 
+  if (mCheckZdcVz) {std::cout << mMinZdcVz << " < Zdc-Vz < " << mMaxZdcVz << std::endl;}
+  if (mCheckCtbSum) {std::cout << mMinCtbSum << " < Ctb-Sum < " << mMaxCtbSum << std::endl;}
   
   if (mCheckTrigger && mTriggers.size() > 0) {
     std::string trigger_string = "[ " + tostr(mTriggers[0]);
     for (unsigned i = 1; i < mTriggers.size(); ++i) {
       trigger_string += ", " + tostr(mTriggers[i]);
     }
-    LOG_INFO << "Using triggers: " << trigger_string << endm;
+    std::cout << "Using triggers: " << trigger_string << std::endl;
   }
-  LOG_INFO << " // ------------------        End Cuts        ------------------ //" << endm;
+  std::cout << " // ------------------        End Cuts        ------------------ //" << std::endl;
 }
 
 void  EventCutsRun4::PrintStats() {
-  LOG_INFO << "// ------------------ EventCutsRun4 Stats ------------------ //" << endm;
-  LOG_INFO << "number of events:   " << mNEvents << endm;
-  if (mCheckVx) {LOG_INFO << "events rejected by Vx cut: " << mEventsFailedVx << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedVx / mNEvents << endm;}
-  if (mCheckVy) {LOG_INFO << "events rejected by Vy cut: " << mEventsFailedVy << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedVy / mNEvents << endm;}
-  if (mCheckVz) {LOG_INFO << "events rejected by Vz cut: " << mEventsFailedVz << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedVz / mNEvents << endm;}
+  std::cout << "// ------------------ EventCutsRun4 Stats ------------------ //" << std::endl;
+  std::cout << "number of events:   " << mNEvents << std::endl;
+  if (mCheckVx) {std::cout << "events rejected by Vx cut: " << mEventsFailedVx << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedVx / mNEvents << std::endl;}
+  if (mCheckVy) {std::cout << "events rejected by Vy cut: " << mEventsFailedVy << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedVy / mNEvents << std::endl;}
+  if (mCheckVz) {std::cout << "events rejected by Vz cut: " << mEventsFailedVz << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedVz / mNEvents << std::endl;}
   if (mCheckRefMult) {
-    LOG_INFO << "events rejected by RefMult cut: " << mEventsFailedVx << endm;
-    LOG_INFO << "\t using grefmult: "; if (mUseGrefMult) {LOG_INFO << "true" << endm;} else {LOG_INFO << "false" << endm;}
-    LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedRef / mNEvents << endm;
+    std::cout << "events rejected by RefMult cut: " << mEventsFailedVx << std::endl;
+    std::cout << "\t using grefmult: "; if (mUseGrefMult) {std::cout << "true" << std::endl;} else {std::cout << "false" << std::endl;}
+    std::cout << "\t percent loss: " << (Double_t) mEventsFailedRef / mNEvents << std::endl;
  }
- if (mCheckZdcEast) {LOG_INFO << "events rejected by ZDC-E cut: " << mEventsFailedZdcEast << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedZdcEast / mNEvents << endm;}
- if (mCheckZdcWest) {LOG_INFO << "events rejected by ZDC-W cut: " << mEventsFailedZdcWest << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedZdcWest / mNEvents << endm;}
- if (mCheckZdcVz) {LOG_INFO << "events rejected by ZDC-Vz cut: " << mEventsFailedZdcVz << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedZdcVz / mNEvents << endm;}
- if (mCheckCtbSum) {LOG_INFO << "events rejected by Ctb-Sum cut: " << mEventsFailedCtbSum << endm;
-                   LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailedCtbSum / mNEvents << endm;}
+ if (mCheckZdcEast) {std::cout << "events rejected by ZDC-E cut: " << mEventsFailedZdcEast << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedZdcEast / mNEvents << std::endl;}
+ if (mCheckZdcWest) {std::cout << "events rejected by ZDC-W cut: " << mEventsFailedZdcWest << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedZdcWest / mNEvents << std::endl;}
+ if (mCheckZdcVz) {std::cout << "events rejected by ZDC-Vz cut: " << mEventsFailedZdcVz << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedZdcVz / mNEvents << std::endl;}
+ if (mCheckCtbSum) {std::cout << "events rejected by Ctb-Sum cut: " << mEventsFailedCtbSum << std::endl;
+                   std::cout << "\t percent loss: " << (Double_t) mEventsFailedCtbSum / mNEvents << std::endl;}
   
   if (mCheckTrigger && mTriggers.size() > 0) {
     std::string trigger_string = "[ " + tostr(mTriggers[0]);
@@ -290,14 +290,14 @@ void  EventCutsRun4::PrintStats() {
       loss_string += ", " + tostr(mEventsFailedTrigger[i]);
     }
     trigger_string += " ]"; loss_string += " ]";
-    LOG_INFO << "events rejected by triggers: " << endm;
-    LOG_INFO << "using triggers: " << trigger_string << endm;
-    LOG_INFO << "rejected: " << loss_string << endm;
-    LOG_INFO << "total events rejected by trigger: " << mEventsFailedTriggerTotal << endm;
+    std::cout << "events rejected by triggers: " << std::endl;
+    std::cout << "using triggers: " << trigger_string << std::endl;
+    std::cout << "rejected: " << loss_string << std::endl;
+    std::cout << "total events rejected by trigger: " << mEventsFailedTriggerTotal << std::endl;
   }
-  LOG_INFO << "total number of events rejected: " << mEventsFailed << endm;
-  LOG_INFO << "\t percent loss: " << (Double_t) mEventsFailed / mNEvents << endm;
-  LOG_INFO << " // ------------------        End Stats        ------------------ //" << endm;
+  std::cout << "total number of events rejected: " << mEventsFailed << std::endl;
+  std::cout << "\t percent loss: " << (Double_t) mEventsFailed / mNEvents << std::endl;
+  std::cout << " // ------------------        End Stats        ------------------ //" << std::endl;
   
 }
 
