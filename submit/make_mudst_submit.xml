@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE note [
+<!ENTITY INPUT "">
+<!ENTITY PROD "pro">
+<!ENTITY ROOTDIR "/star/u/nelsey/StProductionQA">
+<!ENTITY OUTDIR "/star/u/nelsey/StProductionQA/out">
+]>
+
+<!--             STAR Collaboration - Nick Elsey             -->
+<!--
+
+ OUTDIR/tmplogs must be created before the script is submitted
+ 
+ To Use: Settings
+ 
+ INPUT:      input event file to produce a MuDst from
+ 
+ PROD:       the library that the muDsts/minimcs were produced with
+ 
+ ROOTDIR:    root directory of StEfficiencyMaker code
+ 
+ OUTDIR:     target output directory
+ 
+ -->
+
+<!-- <job fileListSyntax="xrootd" inputOrder="runnumber" splitBy="runnumber" maxEvents="15000" simulateSubmission="true"> -->
+<job>
+
+ <command>
+   
+    starver &PROD;
+   
+    setenv LOG &OUTDIR;/logs/log
+    setenv ERR &OUTDIR;/logs/err
+    setenv OUT &OUTDIR;/mudst
+
+    mkdir -p $LOG
+    mkdir -p $ERR
+    mkdir -p $OUT
+    
+    
+    root4star -q -b make_mudst.cxx\(1e9,\"\&INPUT;\"\)
+
+    rm &OUTDIR;/tmplogs/$JOBID.*
+	
+    mv $SCRATCH/*.root $OUT/
+ </command>
+ 
+ <ResourceUsage>
+   <Times>
+     <MaxWallTime>1</MaxWallTime>
+   </Times>
+ </ResourceUsage>
+
+ <SandBox installer="ZIP">
+	 <Package name="MuDstMaker">
+                <File>file:&ROOTDIR;/macros/make_mudst.cxx</File>
+         </Package>
+ </SandBox>
+ 
+ <Generator>
+   <Location>&ROOTDIR;/scheduler/report/</Location>
+   <ScriptLocation>&ROOTDIR;/scheduler/csh/</ScriptLocation>
+   <ListLocation>&ROOTDIR;/scheduler/list/</ListLocation>
+ </Generator>
+
+<stdout URL="file:&OUTDIR;/tmplogs/$JOBID.log" />
+<stderr URL="file:&OUTDIR;/tmplogs/$JOBID.err" />
+
+</job>
+
+
