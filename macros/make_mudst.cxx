@@ -39,7 +39,7 @@ int make_mudst(const int nevents=1e9,
   // v0dst->SetWrite("StrangemuEventHBTPeriphdst.root","Strangemuv0HBTPeriphdst.root"); // Set V0muDStMaker output file and Event output file
   
   
-  StMuDstMaker* maker = new StMuDstMaker(1,1,dirName);
+  StMuDstMaker* maker = new StMuDstMaker(1,1,"./");
   //  maker->setSplit(500);
   //  maker->setBufferSize(4000);
   //  To use a different PID file than the default, uncomment and
