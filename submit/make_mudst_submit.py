@@ -55,7 +55,7 @@ def main(args):
   with open(args.fileList) as f:
     filelist = f.readlines()
   
-  filelist = [x.stripped() for x in filelist]
+  filelist = [x.strip() for x in filelist]
 
   ## and we can start job submission now
   processes = []
@@ -83,7 +83,7 @@ def main(args):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Submit embedding jobs via star-submit')
-  parser.add_argument('--fileList', default='minimc_list/piplus', help='text file listing input event.root files')
+  parser.add_argument('--fileList', default='event_file.list', help='text file listing input event.root files')
   parser.add_argument('--outputDir', default='out', help='root output directory')
   parser.add_argument('--submitscript', default='make_mudst_submit.xml', help='the xml file for star-submit')
   args = parser.parse_args()
