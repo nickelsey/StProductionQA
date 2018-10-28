@@ -87,8 +87,10 @@ Int_t StEfficiencyQARun4::Make() {
         data_fitfrac_->Fill(centrality, muTrack->pt(), (double)muTrack->nHitsFit()/muTrack->nHitsPoss(kTpcId)+1);
         pt_->Fill(centrality, muTrack->pt());
       
-        double efficiency = 1.0;
-      
+        if (muTrack->pt() < 0.2)
+            continue;
+        
+        double efficiency = 1.0; 
         if (effic_curve_)
             efficiency = effic_curve_->Eval(muTrack->eta(), muTrack->pt());
   
